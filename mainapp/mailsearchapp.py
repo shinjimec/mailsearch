@@ -20,7 +20,7 @@ def web_handler(search_keyword):
     options.add_argument('--disable-dev-shm-usage')
     CHROMEDRIVER = ChromeDriverManager().install()
     service = fs.Service(CHROMEDRIVER)
-    browser = webdriver.Chrome(options=chrome_options, service=service)
+    browser = webdriver.Chrome(options=options, service=service)
     wait = WebDriverWait(driver=browser, timeout=60)
 
 
