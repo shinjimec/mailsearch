@@ -1,6 +1,7 @@
 import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -12,14 +13,14 @@ def web_handler(search_term):
     options = Options()
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
-    options.add_experimental_option("excludeSwitches", ['enable-automation', 'load-extension'])
-    prefs = {
-        "credentials_enable_service": False,
-        "download_bubble.partial_view_enabled": False,
-        "plugins.always_open_pdf_externally": True,
-    }
-    options.add_experimental_option("prefs", prefs)
-    browser = webdriver.Chrome(options=options)
+    options.add_argument("--headless")  
+    options.add_argument("--no-sandbox")  
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")  # グラフィックスの無効化
+    browser = webdriver.Chrome(
+        ChromeDriverManager().install(),
+        options=options
+    )
     wait = WebDriverWait(driver=browser, timeout=60)
 
     url = 'https://secure.xserver.ne.jp/xapanel/login/xbiz/mail/'
