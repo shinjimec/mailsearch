@@ -2,6 +2,7 @@ import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -17,7 +18,8 @@ def web_handler(search_term):
     options.add_argument("--no-sandbox")  
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")  # グラフィックスの無効化
-    browser = webdriver.Chrome(ChromeDriverManager().install(),options=options)
+    service = Service(executable_path=ChromeDriverManager().install())
+    browser = webdriver.Chrome(options=options, service=service)
     wait = WebDriverWait(driver=browser, timeout=60)
 
     url = 'https://secure.xserver.ne.jp/xapanel/login/xbiz/mail/'
