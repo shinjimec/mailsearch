@@ -1,8 +1,6 @@
 import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
 from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -21,7 +19,7 @@ def web_handler(search_term):
         "plugins.always_open_pdf_externally": True,
     }
     options.add_experimental_option("prefs", prefs)
-    browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    browser = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver=browser, timeout=60)
 
     url = 'https://secure.xserver.ne.jp/xapanel/login/xbiz/mail/'
