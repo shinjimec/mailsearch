@@ -1,14 +1,13 @@
+
 import streamlit as st
 from selenium import webdriver
+from time import sleep
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
-from selenium.webdriver.chrome.service import Service as ChromiumService
-from webdriver_manager.core.os_manager import ChromeType
-from webdriver_manager.chrome import ChromeDriverManager
+
 
 
 def web_handler(search_keyword):
@@ -17,8 +16,7 @@ def web_handler(search_keyword):
     options.add_argument('--disable-gpu')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    service = ChromiumService(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
-    browser = webdriver.Chrome(options=options, service=service)
+    browser = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver=browser, timeout=60)
 
 
