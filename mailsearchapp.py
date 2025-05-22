@@ -1,7 +1,9 @@
 import streamlit as st
 from selenium import webdriver
-from time import sleep
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from time import sleep
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,18 +13,17 @@ import os
 import signal
 
 def web_handler(search_term):
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--ignore-certificate-errors')
-    chrome_options.add_argument('--ignore-ssl-errors')
-    chrome_options.add_argument('log-level=3')
-    chrome_options.add_experimental_option("excludeSwitches", ['enable-automation', 'load-extension'])
+    options = Options()
+    options.add_argument('--disable-gpu')
+    options.add_argument('--headless')
+    options.add_experimental_option("excludeSwitches", ['enable-automation', 'load-extension'])
     prefs = {
         "credentials_enable_service": False,
         "download_bubble.partial_view_enabled": False,
         "plugins.always_open_pdf_externally": True,
     }
-    chrome_options.add_experimental_option("prefs", prefs)
-    browser = webdriver.Chrome(options=chrome_options)
+    options.add_experimental_option("prefs", prefs)
+    browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     wait = WebDriverWait(driver=browser, timeout=60)
 
     try:
