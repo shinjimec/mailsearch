@@ -17,10 +17,7 @@ def web_handler(search_term):
     options.add_argument("--no-sandbox")  
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")  # グラフィックスの無効化
-    browser = webdriver.Chrome(
-        ChromeDriverManager().install(),
-        options=options
-    )
+    browser = webdriver.Chrome(ChromeDriverManager().install(),options=options)
     wait = WebDriverWait(driver=browser, timeout=60)
 
     url = 'https://secure.xserver.ne.jp/xapanel/login/xbiz/mail/'
