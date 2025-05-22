@@ -2,6 +2,7 @@ import streamlit as st
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 from selenium.webdriver.chrome.service import Service
 from time import sleep
 from selenium.webdriver.common.by import By
@@ -12,13 +13,11 @@ import traceback
 
 def web_handler(search_term):
     options = Options()
-    options.add_argument('--disable-gpu')
-    options.add_argument('--headless')
     options.add_argument("--headless")  
     options.add_argument("--no-sandbox")  
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")  # グラフィックスの無効化
-    service = Service(executable_path=ChromeDriverManager().install())
+    service = Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install())
     browser = webdriver.Chrome(options=options, service=service)
     wait = WebDriverWait(driver=browser, timeout=60)
 
